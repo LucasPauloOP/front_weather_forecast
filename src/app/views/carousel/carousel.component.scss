@@ -1,0 +1,50 @@
+/* Filtering table demo */
+ngbd-table-filtering span.ngb-highlight {
+  background-color: yellow;
+}
+
+/* Complete table demo */
+ngbd-table-complete span.ngb-highlight {
+  background-color: yellow;
+}
+
+ngb-carousel .picsum-img-wrapper {
+  position: relative;
+  height: 0;
+  padding-top: 55%; /* Keep ratio for 900x500 images */
+}
+
+ngb-carousel .picsum-img-wrapper>img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+ngb-carousel {
+  width:50%;
+  background-color:black;
+  margin:auto;
+}
+
+.temp {
+  text-align: justify;
+  color:white;
+  margin-left:560px;
+  margin-top:-350px;
+  position:absolute;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.background {
+  max-width:700px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel-caption {
+  background-color: black;
+  opacity: 0.5;
+}

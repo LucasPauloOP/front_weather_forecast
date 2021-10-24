@@ -1,3 +1,39 @@
-<form [formGroup]="form">
-
+<form [formGroup]="form" class="row" >
+  <div class="col-4">
+    <label>Escolha um país:</label>
+    <ng-select
+      placeholder="País"
+      [items]="listCountry"
+      bindLabel="label"
+      bindValue="value"
+      formControlName="country"
+    >
+    </ng-select>
+  </div>
+  <div class="col-4">
+    <label>Escolha um estado:</label>
+    <ng-select
+      placeholder="Estado"
+      [items]="listState"
+      bindLabel="label"
+      bindValue="value"
+      (ngModelChange)="getCity()"
+      formControlName="state"
+    >
+    </ng-select>
+  </div>
+  <div class="col-4">
+    <label>Escolha uma cidade:</label>
+    <ng-select
+      placeholder="Cidade"
+      [items]="listCity"
+      bindLabel="label"
+      bindValue="value"
+      formControlName="city"
+    >
+    </ng-select>
+  </div>
+  <div class="col-12" style="text-align: center; margin-top:5px;">
+    <button type="button" (click)="submitEvent.emit(form.getRawValue())" class="btn btn-primary">Pesquisar</button>
+  </div>
 </form>

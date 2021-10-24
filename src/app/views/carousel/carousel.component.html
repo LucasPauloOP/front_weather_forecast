@@ -1,0 +1,21 @@
+<ngb-carousel>
+  <ng-template *ngFor="let daily of data; let i = index" ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img [src]="'../../../assets/' + getIcon(daily.weather[0])" />
+      <img class="background" [src]="'../../../assets/background/' + getBackground(daily.weather[0])" />
+    </div>
+    <div class="temp">
+      <h5 style="font-size: 20px;">
+        <strong>MAX: {{ getTrunc(daily.temp.max) }} º</strong>
+      </h5>
+      <h5 style="font-size: 20px;">
+        <strong>MIN: {{ getTrunc(daily.temp.min) }} º</strong>
+      </h5>
+    </div>
+    <div class="carousel-caption">
+      <h3>{{this.dataSearch.city + '-'+ this.dataSearch.state}} Data: {{ moment().add(i, 'day').format("DD/MM/YYYY") }}</h3>
+      <h3>{{'Clima: ' + translateWeather(daily.weather[0])}}</h3>
+      <h3>A cada 10 segundos muda o dia de forma automática</h3>
+    </div>
+  </ng-template>
+</ngb-carousel>

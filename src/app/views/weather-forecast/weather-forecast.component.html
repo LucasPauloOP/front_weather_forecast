@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title"> Escolha o local  da previsão do tempo</h3>
-    <app-form></app-form>
+    <app-form (submitEvent)="getForecast($event)"></app-form>
   </div>
 </div>
+<div style="text-align: center;">
+</div>
+<h1 *ngIf="sendRequest" style="text-align: center;">Carregando ...</h1>
+<app-carousel [data]="daily" [dataSearch]="dataSearch"></app-carousel>
