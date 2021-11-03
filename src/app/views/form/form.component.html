@@ -5,6 +5,7 @@
       placeholder="País"
       [items]="listCountry"
       bindLabel="label"
+      (ngModelChange)="getStates()"
       bindValue="value"
       formControlName="country"
     >

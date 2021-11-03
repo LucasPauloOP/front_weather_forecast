@@ -23,10 +23,9 @@ export class WeatherForecastComponent implements OnInit {
     this.sendRequest = true;
 
     this.daily = [];
-      this.service.getForecast(params.country, params.state, params.city)
+      this.service.getForecast(params.country, params.state, params.city.normalize('NFD').replace(/[\u0300-\u036f]/g, ""))
       .subscribe(data => {
         const weatherForecast = data;
-        console.log(weatherForecast);
         if (!weatherForecast) this.daily = [];
         this.daily = weatherForecast.daily;
         this.sendRequest = false;

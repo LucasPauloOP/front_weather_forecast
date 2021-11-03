@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { WeatherForecastService } from 'src/app/service/weather-forecast.service';
-
+import { Country, State, City } from 'country-state-city';
 
 @Component({
   selector: 'app-form',
@@ -14,13 +14,13 @@ export class FormComponent implements OnInit {
   @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
 
   public listCountry = [
-    {label:'Brasil', value:'BR'}
+    { label: 'Brasil', value: 'BR' }
   ];
   public listState = [
-    {label:'Minas Gerais', value:'MG'}
+    { label: 'Minas Gerais', value: 'MG' }
   ];
   public listCity = [
-    {label:'Ipatinga', value:'Ipatinga'}
+    { label: 'Ipatinga', value: 'Ipatinga' }
   ];
 
   constructor(
@@ -43,15 +43,56 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.getStates();
     this.getCity();
+    this.getCountry();
+  }
+
+  getCountry() {
+    const countries = Country.getAllCountries();
+
+    if (countries && countries.length > 0) {
+      this.listCountry = countries.map(country => {
+        return {
+          label: country.name,
+          value: country.isoCode
+        }
+      })
+    }
+
+    if (this.listCountry?.length) this.getStates();
   }
 
   getStates() {
-    this.listState = this.service.getStates();
+    const states = State.getStatesOfCountry(this.form.value.country)
+
+    if (states && states.length) {
+      this.listState = states.map(state => {
+        return {
+          label: state.name,
+          value: state.isoCode
+        }
+      })
+    }
+
+    if (this.listState.length > 0) {
+      this.form.get('state')?.setValue(this.listState[0].value);
+
+      this.getCity();
+    }
+
   }
 
   getCity() {
-    this.listCity = this.service.getCities(this.form.value.state);
+    const cities = City.getCitiesOfState(this.form.value.country, this.form.value.state);
 
-    if (this.listCity.length > 0)  this.form.get('city')?.setValue(this.listCity[0].value);
+    if (cities && cities.length) {
+      this.listCity = cities.map(city => {
+        return {
+          label: city.name,
+          value: city.name
+        }
+      })
+    }
+
+    if (this.listCity.length > 0) this.form.get('city')?.setValue(this.listCity[0].value);
   }
 }
